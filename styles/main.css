@@ -19,6 +19,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
+  margin-bottom: 32px;
   border-bottom: 1px solid rgb(213, 212, 212);
 }
 
@@ -43,15 +44,16 @@ body {
   transition: color 0.3s ease;
 }
 
-section {
-  padding: 32px 0 48px;
-}
-
 .hero {
   display: flex;
   gap: 24px;
   margin-bottom: 30px;
   align-items: center;
+}
+
+.hero-content h1 {
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
 .hero-content button {
@@ -137,4 +139,42 @@ button {
   text-align: center;
   border: 1px solid rgb(213, 212, 212);
   border-radius: 16px;
+}
+
+.cta button {
+  margin-top: 16px;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid rgb(213, 212, 212);
+}
+
+.footer-info {
+   align-content: center;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links li a {
+  text-decoration: none;
+  color: black;
+}
+
+.footer-links li a:hover {
+  color: orange;
+  transition: color 0.3s ease;
+}
+
+.footer-copyright {
+  margin-top: 16px;
+  font-size: 14px;
+  color: rgb(171, 170, 170);
 }
