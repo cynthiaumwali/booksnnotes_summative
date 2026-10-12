@@ -86,10 +86,76 @@ form.addEventListener("submit", (e) => {
   dialog.close();
 });
 
-function fetchLocalStorageRecords() {
+const fetchLocalStorageRecords = () => {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
   } catch {
     return [];
   }
-}
+};
+
+const recordValidator = (record) => {
+  if (!patterns.title.test(record.title)) return false;
+  if (!patterns.author.test(record.author)) return false;
+  if (!patterns.genre.test(record.genre)) return false;
+  if (!patterns.year.test(record.year)) return false;
+  if (!patterns.status.test(record.status)) return false;
+  if (!patterns.rating.test(record.rating)) return false;
+  if (!patterns.hasALetter.test(record.summary)) return false;
+  if (!patterns.tags.test(record.tags)) return false;
+  if (!patterns.text.test(record.notes)) return false;
+  if (!record.type) return false;
+  return true;
+};
+
+const importFile = document.getElementById("importFile");
+
+document
+  .getElementById("importBtn")
+  .addEventListener("click", () => importFile.click());
+
+importFile.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  e.target.value = "";
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data;
+    try {
+      data = JSON.parse(reader.result);
+    } catch {
+      alert("That file isn't valid JSON file.");
+      return;
+    }
+    if (!Array.isArray(data)) {
+      alert("Expected a JSON array of records.");
+      return;
+    }
+    importRecords(data);
+  };
+  reader.onerror = () => alert("Couldn't read that file.");
+  reader.readAsText(file);
+});
+
+const importRecords = (records) => {
+  const validRecords = records.filter(recordValidator);
+  const storedRecords = fetchLocalStorageRecords();
+  const updatedRecords = [...storedRecords, ...validRecords];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords));
+  renderRecords();
+};
+
+const exportRecords = () => {
+  const records = fetchLocalStorageRecords();
+  const dataStr = JSON.stringify(records, null, 2);
+  const dataUri =
+    "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+  const exportLink = document.createElement("a");
+  exportLink.setAttribute("href", dataUri);
+  exportLink.setAttribute("download", "booknnotesvault_records.json");
+  exportLink.click();
+};
+
+const exportButton = document.getElementById("exportBtn");
+exportButton.addEventListener("click", exportRecords);
