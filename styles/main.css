@@ -285,3 +285,17 @@ dialog .form-buttons .danger {
     border: 1px solid rgb(213, 212, 212);
     border-radius: 16px;
 }
+
+.import-export {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.import-export button {
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 16px;
+}

@@ -58,6 +58,11 @@
           </select>
         </div>
       </div>
+      <div class="import-export">
+        <button>Import</button>
+        <button>Export</button>
+        <input type="file" id="importFile" accept=".json,application/json" hidden>
+      </div>
       <div class="records-container">
         <table id="records-table">
           <thead>
@@ -102,7 +107,7 @@
         /><br />
         <label for="year">Year:</label>
         <input
-          type="number"
+          type="text"
           id="year"
           name="year"
           required
