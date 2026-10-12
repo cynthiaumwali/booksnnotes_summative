@@ -18,3 +18,33 @@ const fetchRecords = async () => {
 };
 
 fetchRecords();
+
+const dialog = document.getElementById("form-container");
+const openButton = document.getElementById("addNewButton");
+const closeButton = document.getElementById("cancelButton");
+const form = document.getElementById("addRecordForm");
+
+openButton.addEventListener("click", () => dialog.showModal());
+
+closeButton.addEventListener("click", () => dialog.close());
+
+dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = form.elements["title"].value;
+    const author = form.elements["author"].value;
+    const genre = form.elements["genre"].value;
+    const year = form.elements["year"].value;
+    const status = form.elements["status"].value;
+    const rating = form.elements["rating"].value;
+    const summary = form.elements["summary"].value;
+    const tags = form.elements["tags"].value;
+    const notes = form.elements["notes"].value;
+    const type = form.elements["type"].value;
+    const newRecord = { title, author, genre, year, status, rating, summary, tags, notes, type };
+    form.reset();
+    dialog.close();
+});
