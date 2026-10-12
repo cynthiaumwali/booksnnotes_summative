@@ -1,0 +1,159 @@
+[
+  {
+    "id": 1,
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "genre": "Self-Improvement",
+    "year": 2018,
+    "status": "completed",
+    "rating": 5,
+    "summary": "Small changes, repeated daily, compound into big results. Focus on systems and identity instead of goals.",
+    "tags": ["habits", "productivity", "psychology"],
+    "dateAdded": "2024-01-05",
+    "notes": [
+      { "id": 1, "text": "Habit loop: cue, craving, response, reward.", "page": 47 },
+      { "id": 2, "text": "Make good habits obvious and easy; make bad habits invisible and hard.", "page": 62 },
+      { "id": 3, "text": "Aim to become the type of person who does the thing, not just to hit the goal.", "page": 31 }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "genre": "Productivity",
+    "year": 2016,
+    "status": "completed",
+    "rating": 4,
+    "summary": "The ability to focus without distraction is rare and valuable. Build routines that protect long stretches of concentration.",
+    "tags": ["focus", "career", "productivity"],
+    "dateAdded": "2024-01-12",
+    "notes": [
+      { "id": 4, "text": "Schedule deep work blocks in advance, like meetings.", "page": 99 },
+      { "id": 5, "text": "Shallow work is easy to replicate, so it adds little value.", "page": 41 }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "genre": "History",
+    "year": 2011,
+    "status": "completed",
+    "rating": 4,
+    "summary": "A sweeping history of humankind, arguing that shared myths like money, nations and religion let large groups cooperate.",
+    "tags": ["history", "anthropology", "society"],
+    "dateAdded": "2024-01-20",
+    "notes": [
+      { "id": 6, "text": "The Cognitive Revolution made flexible large-scale cooperation possible.", "page": 27 },
+      { "id": 7, "text": "Agriculture raised population but not necessarily individual well-being.", "page": 79 }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "genre": "Finance",
+    "year": 2020,
+    "status": "completed",
+    "rating": 5,
+    "summary": "How you behave with money matters more than how much you know. Short stories about luck, risk and patience.",
+    "tags": ["money", "investing", "behavior"],
+    "dateAdded": "2024-02-02",
+    "notes": [
+      { "id": 8, "text": "Getting wealthy and staying wealthy are different skills.", "page": 54 },
+      { "id": 9, "text": "Save for flexibility, not just for a specific purchase.", "page": 112 },
+      { "id": 10, "text": "Luck and risk are two sides of the same coin.", "page": 18 }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "genre": "Psychology",
+    "year": 2011,
+    "status": "reading",
+    "rating": null,
+    "summary": "Explores two modes of thought: fast, intuitive System 1 and slow, deliberate System 2, and the biases that result.",
+    "tags": ["psychology", "decision-making", "bias"],
+    "dateAdded": "2024-02-14",
+    "notes": [
+      { "id": 11, "text": "Anchoring: first numbers we see skew later estimates.", "page": 119 }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt and David Thomas",
+    "genre": "Technology",
+    "year": 1999,
+    "status": "completed",
+    "rating": 5,
+    "summary": "Practical advice for writing flexible, maintainable code and growing as a software craftsperson.",
+    "tags": ["programming", "career", "best-practices"],
+    "dateAdded": "2024-02-25",
+    "notes": [
+      { "id": 12, "text": "DRY: every piece of knowledge should have one authoritative place.", "page": 30 },
+      { "id": 13, "text": "Fix broken windows early; small messes invite bigger ones.", "page": 5 }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Man's Search for Meaning",
+    "author": "Viktor E. Frankl",
+    "genre": "Philosophy",
+    "year": 1946,
+    "status": "completed",
+    "rating": 5,
+    "summary": "A psychiatrist's account of surviving the camps and the idea that finding purpose is the key to enduring suffering.",
+    "tags": ["meaning", "resilience", "psychology"],
+    "dateAdded": "2024-03-03",
+    "notes": [
+      { "id": 14, "text": "We cannot always choose circumstances, but we can choose our response.", "page": 86 }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "genre": "Fiction",
+    "year": 1988,
+    "status": "completed",
+    "rating": 3,
+    "summary": "A shepherd travels from Spain to Egypt in search of treasure and learns to follow his personal calling.",
+    "tags": ["fable", "journey", "destiny"],
+    "dateAdded": "2024-03-10",
+    "notes": [
+      { "id": 15, "text": "The journey matters as much as the treasure.", "page": 130 },
+      { "id": 16, "text": "Fear of failing is often what stops people from starting.", "page": 74 }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Educated",
+    "author": "Tara Westover",
+    "genre": "Memoir",
+    "year": 2018,
+    "status": "want-to-read",
+    "rating": null,
+    "summary": "A memoir about growing up in a survivalist family and discovering education as a path to self-invention.",
+    "tags": ["memoir", "education", "family"],
+    "dateAdded": "2024-03-18",
+    "notes": []
+  },
+  {
+    "id": 10,
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "genre": "Technology",
+    "year": 2008,
+    "status": "reading",
+    "rating": null,
+    "summary": "Principles and examples for writing readable, maintainable code, with a focus on naming, functions and refactoring.",
+    "tags": ["programming", "refactoring", "best-practices"],
+    "dateAdded": "2024-03-22",
+    "notes": [
+      { "id": 17, "text": "Functions should do one thing and do it well.", "page": 35 },
+      { "id": 18, "text": "Good names remove the need for most comments.", "page": 17 }
+    ]
+  }
+]
