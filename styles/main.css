@@ -183,3 +183,12 @@ button {
   font-size: 14px;
   color: rgb(171, 170, 170);
 }
+
+/* styles for dashboard */
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
