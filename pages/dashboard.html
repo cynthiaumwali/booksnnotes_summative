@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <script src="/scripts/main.js" defer></script>
+    <title>Books&Notes</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <h2>
+        Books<span style="color: orange; font-style: italic">&</span>Notes
+      </h2>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button>Settings</button>
+    </nav>
+    <section class="dashboard">
+      <div class="heading">
+        <div>
+          <h1>Welcome to Your Dashboard</h1>
+          <p>Here you can manage your books, notes, and summaries.</p>
+        </div>
+        <button>+ Add New</button>
+      </div>
+      <div class="number-cards">
+        <div class="card">
+          <h3>Books</h3>
+          <p>120</p>
+        </div>
+        <div class="card">
+          <h3>Notes</h3>
+          <p>350</p>
+        </div>
+        <div class="card">
+          <h3>Summaries</h3>
+          <p>75</p>
+        </div>
+      </div>
+      <div class="search-elements">
+        <div>
+          <input type="text" placeholder="Search your notes..." />
+          <button>Search</button>
+        </div>
+        <div>
+          <label for="filter">Filter by:</label>
+          <select id="filter">
+            <option value="all">All</option>
+            <option value="books">Books</option>
+            <option value="notes">Notes</option>
+            <option value="summaries">Summaries</option>
+          </select>
+        </div>
+      </div>
+      <div class="">
+        <table id="records-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Year</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>
