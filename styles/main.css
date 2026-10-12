@@ -192,3 +192,43 @@ button {
     gap: 16px;
     align-items: center;
 }
+
+.number-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.card {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.search-elements {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.input-container {
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 24px;
+    padding: 4px 6px;
+}
+
+.input-container input {
+    border: none;
+    padding: 12px;
+    margin-right: 6px;
+}
+
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
