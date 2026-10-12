@@ -251,3 +251,37 @@ td {
   text-align: center;
   word-wrap: break-word;
 }
+
+dialog {
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 8px;
+    padding: 20px;
+    margin: auto;
+}
+
+dialog h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+dialog input, dialog select, dialog textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 8px;
+}
+
+dialog .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+dialog .form-buttons .danger {
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 16px;
+}

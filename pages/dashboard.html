@@ -82,7 +82,7 @@
           name="title"
           required
           placeholder="Enter title"
-        /><br /><br />
+        /><br />
 
         <label for="author">Author:</label>
         <input
@@ -91,7 +91,7 @@
           name="author"
           required
           placeholder="Enter author"
-        /><br /><br />
+        /><br />
         <label for="genre">Genre:</label>
         <input
           type="text"
@@ -99,7 +99,7 @@
           name="genre"
           required
           placeholder="Enter genre"
-        /><br /><br />
+        /><br />
         <label for="year">Year:</label>
         <input
           type="number"
@@ -107,13 +107,13 @@
           name="year"
           required
           placeholder="Enter year"
-        /><br /><br />
+        /><br />
         <label for="status">Status:</label>
         <select id="status" name="status" required>
           <option value="">Select Status</option>
           <option value="read">Read</option>
           <option value="unread">Unread</option></select
-        ><br /><br />
+        ><br />
         <label for="rating">Rating:</label>
         <input
           type="number"
@@ -123,7 +123,7 @@
           max="5"
           required
           placeholder="5"
-        /><br /><br />
+        /><br />
         <label for="summary">Summary:</label>
         <textarea
           id="summary"
@@ -133,7 +133,7 @@
           required
           placeholder="Enter summary"
         ></textarea
-        ><br /><br />
+        ><br />
         <label for="tags">Tags:</label>
         <input
           type="text"
@@ -141,7 +141,7 @@
           name="tags"
           placeholder="Comma-separated tags"
           required
-        /><br /><br />
+        /><br />
         <label for="notes">Notes:</label>
         <textarea
           id="notes"
@@ -151,17 +151,17 @@
           required
           placeholder="Enter notes"
         ></textarea
-        ><br /><br />
+        ><br />
         <label for="type">Type:</label>
         <select id="type" name="type" required>
           <option value="">Select Type</option>
           <option value="book">Book</option>
           <option value="note">Note</option>
           <option value="summary">Summary</option></select
-        ><br /><br />
+        ><br />
         <div class="form-buttons">
-          <button type="submit">Add Record</button>
-          <button type="button" id="cancelButton">Cancel</button>
+          <button type="submit" class="success">Add Record</button>
+          <button type="button" id="cancelButton" class="danger">Cancel</button>
         </div>
       </form>
     </dialog>

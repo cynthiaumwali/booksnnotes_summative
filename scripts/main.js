@@ -3,8 +3,9 @@ const recordsTable = document.getElementById("records-table");
 const fetchRecords = async () => {
   try {
     const response = await fetch("../seed.json");
-    const records = await response.json();
-    records.forEach((record) => {
+    const seedRecords = await response.json();
+    const allRecords = [...seedRecords, ...fetchLocalStorageRecords()];
+    allRecords.forEach((record) => {
       const row = document.createElement("tr");
       row.innerHTML = `<td>${record.title}</td>
       <td>${record.author}</td>
@@ -32,6 +33,8 @@ dialog.addEventListener("click", (e) => {
     if (e.target === dialog) dialog.close();
 });
 
+const STORAGE_KEY = "booknnotesvault_records";
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = form.elements["title"].value;
@@ -47,4 +50,18 @@ form.addEventListener("submit", (e) => {
     const newRecord = { title, author, genre, year, status, rating, summary, tags, notes, type };
     form.reset();
     dialog.close();
+    let records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    records.push(newRecord);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    fetchRecords();
+    form.reset();
+    dialog.close();
 });
+
+function fetchLocalStorageRecords() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+        return []; 
+    }
+}
