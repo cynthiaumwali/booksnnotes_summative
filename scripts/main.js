@@ -1,3 +1,4 @@
+import { patterns } from "./regexPatterns.js";
 const recordsTable = document.getElementById("records-table");
 
 const fetchRecords = async () => {
@@ -80,7 +81,9 @@ form.addEventListener("submit", (e) => {
   const records = getStoredRecords();
   records.push(newRecord);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  renderRecords();
+  const tbody = recordsTable.querySelector("tbody");
+  tbody.innerHTML = "";
+  fetchRecords();
 
   form.reset();
   dialog.close();
@@ -143,7 +146,7 @@ const importRecords = (records) => {
   const storedRecords = fetchLocalStorageRecords();
   const updatedRecords = [...storedRecords, ...validRecords];
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords));
-  renderRecords();
+  fetchRecords();
 };
 
 const exportRecords = () => {
