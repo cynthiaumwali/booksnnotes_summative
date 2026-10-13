@@ -14,6 +14,7 @@ const fetchRecords = async () => {
       <td>${record.dateAdded}</td>
       <td>${record.summary}</td>
         <td>${record.tags}</td>
+        <td>${record.rating}</td>
         <td>${noteText}</td>
       <td><button>Edit</button></td>`;
       recordsTable.querySelector("tbody").appendChild(row);
@@ -155,8 +156,7 @@ const importRecords = (records) => {
 const exportRecords = () => {
   const records = fetchLocalStorageRecords();
   const dataString = JSON.stringify(records, null, 2);
-  const dataUri =
-    "data:application/json;charset=utf-8," + encodeURIComponent(dataString);
+  const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataString);
   const exportLink = document.createElement("a");
   exportLink.setAttribute("href", dataUri);
   exportLink.setAttribute("download", "booksnnotes_records.json");
@@ -183,9 +183,21 @@ sortBySummaryButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
   const rows = Array.from(tbody.querySelectorAll("tr"));
   rows.sort((a, b) => {
-    const aDesc = a.querySelector("td:nth-child(4)").textContent;
-    const bDesc = b.querySelector("td:nth-child(4)").textContent;
-    return aDesc.localeCompare(bDesc)
+    const aDscr = a.querySelector("td:nth-child(4)").textContent;
+    const bDscr = b.querySelector("td:nth-child(4)").textContent;
+    return aDscr.localeCompare(bDscr)
+  });
+  rows.forEach((row) => tbody.appendChild(row));
+});
+
+const sortByRatingButton = document.getElementById("sortByRating")
+sortByRatingButton.addEventListener("click", () => {
+  const tbody = recordsTable.querySelector("tbody");
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  rows.sort((a, b) => {
+    const aRtng = parseFloat(a.querySelector("td:nth-child(6)").textContent) || 0;
+    const bRtng = parseFloat(b.querySelector("td:nth-child(6)").textContent) || 0;
+    return bRtng - aRtng;
   });
   rows.forEach((row) => tbody.appendChild(row));
 });
