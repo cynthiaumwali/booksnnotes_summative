@@ -1,4 +1,4 @@
-import { patterns } from "./regexPatterns.js";
+import { regexPatterns } from "./regexPatterns.js";
 const recordsTable = document.getElementById("records-table");
 
 const fetchRecords = async () => {
@@ -7,10 +7,14 @@ const fetchRecords = async () => {
     const seedRecords = await response.json();
     const allRecords = [...seedRecords, ...fetchLocalStorageRecords()];
     allRecords.forEach((record) => {
+      const noteText = record.notes.map((note) => note.text).join("; ");
       const row = document.createElement("tr");
       row.innerHTML = `<td>${record.title}</td>
       <td>${record.author}</td>
-      <td>${record.year}</td>
+      <td>${record.dateAdded}</td>
+      <td>${record.summary}</td>
+        <td>${record.tags}</td>
+        <td>${noteText}</td>
       <td><button>Edit</button></td>`;
       recordsTable.querySelector("tbody").appendChild(row);
     });
@@ -34,7 +38,7 @@ dialog.addEventListener("click", (e) => {
   if (e.target === dialog) dialog.close();
 });
 
-const STORAGE_KEY = "booknnotesvault_records";
+const STORAGE_KEY = "booksnnotes_records";
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -50,18 +54,18 @@ form.addEventListener("submit", (e) => {
   const notes = form.elements["notes"].value.trim();
   const type = form.elements["type"].value;
 
-  if (!patterns.title.test(title)) return alert("Invalid title");
-  if (!patterns.author.test(author)) return alert("Invalid author");
-  if (!patterns.genre.test(genre)) return alert("Invalid genre");
-  if (!patterns.year.test(year))
+  if (!regexPatterns.title.test(title)) return alert("Invalid title");
+  if (!regexPatterns.author.test(author)) return alert("Invalid author");
+  if (!regexPatterns.genre.test(genre)) return alert("Invalid genre");
+  if (!regexPatterns.year.test(year))
     return alert("Year must be between 1500 and 2099");
-  if (!patterns.status.test(status)) return alert("Choose a status");
-  if (!patterns.rating.test(rating)) return alert("Rating must be 1 to 5");
-  if (!patterns.hasALetter.test(summary))
+  if (!regexPatterns.status.test(status)) return alert("Choose a status");
+  if (!regexPatterns.rating.test(rating)) return alert("Rating must be 1 to 5");
+  if (!regexPatterns.hasALetter.test(summary))
     return alert("Summary must contain at least one letter");
-  if (!patterns.tags.test(tags))
+  if (!regexPatterns.tags.test(tags))
     return alert("Tags must be lowercase and comma-separated");
-  if (!patterns.text.test(notes))
+  if (!regexPatterns.text.test(notes))
     return alert("Notes must be 6 to 500 characters");
   if (!type) return alert("Choose a type");
 
@@ -78,13 +82,12 @@ form.addEventListener("submit", (e) => {
     type,
   };
 
-  const records = getStoredRecords();
+  const records = fetchRecords();
   records.push(newRecord);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
   const tbody = recordsTable.querySelector("tbody");
   tbody.innerHTML = "";
   fetchRecords();
-
   form.reset();
   dialog.close();
 });
@@ -98,6 +101,7 @@ const fetchLocalStorageRecords = () => {
 };
 
 const recordValidator = (record) => {
+  const notesText = record.notes.map((note) => note.text).join("; ");
   if (!patterns.title.test(record.title)) return false;
   if (!patterns.author.test(record.author)) return false;
   if (!patterns.genre.test(record.genre)) return false;
@@ -106,16 +110,15 @@ const recordValidator = (record) => {
   if (!patterns.rating.test(record.rating)) return false;
   if (!patterns.hasALetter.test(record.summary)) return false;
   if (!patterns.tags.test(record.tags)) return false;
-  if (!patterns.text.test(record.notes)) return false;
+  if (!patterns.text.test(notesText)) return false;
   if (!record.type) return false;
   return true;
 };
 
 const importFile = document.getElementById("importFile");
 
-document
-  .getElementById("importBtn")
-  .addEventListener("click", () => importFile.click());
+const importButton = document.getElementById("importButton");
+importButton.addEventListener("click", () => importFile.click());
 
 importFile.addEventListener("change", (e) => {
   const file = e.target.files[0];
@@ -137,7 +140,7 @@ importFile.addEventListener("change", (e) => {
     }
     importRecords(data);
   };
-  reader.onerror = () => alert("Couldn't read that file.");
+  reader.onerror = () => alert("We couldn't read that file.");
   reader.readAsText(file);
 });
 
@@ -151,14 +154,38 @@ const importRecords = (records) => {
 
 const exportRecords = () => {
   const records = fetchLocalStorageRecords();
-  const dataStr = JSON.stringify(records, null, 2);
+  const dataString = JSON.stringify(records, null, 2);
   const dataUri =
-    "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+    "data:application/json;charset=utf-8," + encodeURIComponent(dataString);
   const exportLink = document.createElement("a");
   exportLink.setAttribute("href", dataUri);
-  exportLink.setAttribute("download", "booknnotesvault_records.json");
+  exportLink.setAttribute("download", "booksnnotes_records.json");
   exportLink.click();
 };
 
-const exportButton = document.getElementById("exportBtn");
+const exportButton = document.getElementById("exportButton");
 exportButton.addEventListener("click", exportRecords);
+
+const sortByDateAddedButton = document.getElementById("sort-date");
+sortByDateAddedButton.addEventListener("click", () => {
+  const tbody = recordsTable.querySelector("tbody");
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  rows.sort((a, b) => {
+    const aDate = new Date(a.querySelector("td").textContent);
+    const bDate = new Date(b.querySelector("td").textContent);
+    return bDate - aDate;
+  });
+  rows.forEach((row) => tbody.appendChild(row));
+});
+
+const sortByDescriptionButton = document.getElementById("sort-description");
+sortByDescriptionButton.addEventListener("click", () => {
+  const tbody = recordsTable.querySelector("tbody");
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  rows.sort((a, b) => {
+    const aDesc = a.querySelector("td:nth-child(4)").textContent;
+    const bDesc = b.querySelector("td:nth-child(4)").textContent;
+    return aDesc.localeCompare(bDesc)
+  });
+  rows.forEach((row) => tbody.appendChild(row));
+});
