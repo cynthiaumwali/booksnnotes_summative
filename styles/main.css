@@ -12,6 +12,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  font-size: 15px;
 }
 
 .navbar {
@@ -239,7 +240,6 @@ button {
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
   border: 1px solid rgb(213, 212, 212);
   border-radius: 8px;
 }
@@ -247,9 +247,14 @@ table {
 th,
 td {
   border-bottom: 1px solid rgb(213, 212, 212);
+  border-right: 1px solid rgb(213, 212, 212);
+  border-left: 1px solid rgb(213, 212, 212);
   padding: 14px;
-  text-align: center;
   word-wrap: break-word;
+}
+
+th:nth-last-child, td:nth-last-child {
+  border-right: none;
 }
 
 dialog {
@@ -298,4 +303,27 @@ dialog .form-buttons .danger {
     color: black;
     border: 1px solid rgb(213, 212, 212);
     border-radius: 16px;
+}
+
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin-left: 4px;
+  background: white;
+  border: 1px solid orange;
+  border-radius: 50%;
+  color: orange;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.sort-button:hover {
+  background: orange;
+  color: white;
 }

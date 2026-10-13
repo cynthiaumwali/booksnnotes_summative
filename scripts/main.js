@@ -166,7 +166,7 @@ const exportRecords = () => {
 const exportButton = document.getElementById("exportButton");
 exportButton.addEventListener("click", exportRecords);
 
-const sortByDateAddedButton = document.getElementById("sort-date");
+const sortByDateAddedButton = document.getElementById("sortByDate");
 sortByDateAddedButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
   const rows = Array.from(tbody.querySelectorAll("tr"));
@@ -178,8 +178,8 @@ sortByDateAddedButton.addEventListener("click", () => {
   rows.forEach((row) => tbody.appendChild(row));
 });
 
-const sortByDescriptionButton = document.getElementById("sort-description");
-sortByDescriptionButton.addEventListener("click", () => {
+const sortBySummaryButton = document.getElementById("sortBySummary");
+sortBySummaryButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
   const rows = Array.from(tbody.querySelectorAll("tr"));
   rows.sort((a, b) => {

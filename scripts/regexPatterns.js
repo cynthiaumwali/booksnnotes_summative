@@ -1,4 +1,4 @@
-export const patterns = {
+export const regexPatterns = {
   title: /^[A-Za-z0-9](?:[A-Za-z0-9 ,.'’:!?&()-]*[A-Za-z0-9.!?)])?$/,
 
   author: /^[A-Za-z]+(?:[ .'-]+[A-Za-z]+)*\.?$/,
