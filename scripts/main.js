@@ -1,3 +1,4 @@
+import { dashboardStatsCards } from "./dashboardCards.js";
 import { regexPatterns } from "./regexPatterns.js";
 const STORAGE_KEY = "booksnnotes_records";
 const recordsTable = document.getElementById("records-table");
@@ -19,6 +20,7 @@ const fetchRecords = async () => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(toLocalStorage));
     }
     allRecords = fetchLocalStorageRecords();
+    dashboardStatsCards(allRecords);
     allRecords.forEach((record) => {
       const noteText = record.notes.map((note) => note.text).join("; ");
       const row = document.createElement("tr");
@@ -42,6 +44,7 @@ const fetchRecords = async () => {
 
 fetchRecords();
 
+console.log(allRecords)
 //these are dom elements [specific to the dialog] that we've attached event listeners to
 const dialog = document.getElementById("form-container");
 const openButton = document.getElementById("addNewButton");
@@ -176,7 +179,7 @@ const deleteRecord = (id) => {
     (record) => record.id !== id,
   );
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-  refresh();
+  recordsTable.querySelector("tbody").innerHTML = ""
   fetchRecords();
 };
 
