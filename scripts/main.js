@@ -1,9 +1,12 @@
 import { regexPatterns } from "./regexPatterns.js";
+const STORAGE_KEY = "booksnnotes_records";
 const recordsTable = document.getElementById("records-table");
 
 let allRecords = [];
 let editingId = "";
 
+// fetch records add seed data to local storage 
+// and renders all data together by calling fetchLocalStorageRecords
 const fetchRecords = async () => {
   try {
     const response = await fetch("../seed.json");
@@ -39,6 +42,7 @@ const fetchRecords = async () => {
 
 fetchRecords();
 
+//these are dom elements [specific to the dialog] that we've attached event listeners to
 const dialog = document.getElementById("form-container");
 const openButton = document.getElementById("addNewButton");
 const closeButton = document.getElementById("cancelButton");
@@ -62,6 +66,7 @@ dialog.addEventListener("close", () => {
   submitButton.textContent = "Add Record";
 });
 
+//this event listener listens for a click on either buttons and calls corresponding function
 recordsTable.querySelector("tbody").addEventListener("click", (e) => {
   const button = e.target.closest("button[data-id]");
   if (!button) return;
@@ -70,8 +75,8 @@ recordsTable.querySelector("tbody").addEventListener("click", (e) => {
   if (button.dataset.action === "delete") deleteRecord(id);
 });
 
-const STORAGE_KEY = "booksnnotes_records";
-
+//here we listen for the submit event and get records w spaces trimmed,
+// validate records per corresponding regexes and save them locally
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -116,6 +121,7 @@ form.addEventListener("submit", (e) => {
 
   const records = fetchLocalStorageRecords();
 
+  //if it is a rec we are editing, the edited version replaces the existing/old version in local storage
   if (editingId) {
     const index = records.findIndex((record) => record.id === editingId);
     records[index] = { ...records[index], ...newRecord };
@@ -133,6 +139,8 @@ form.addEventListener("submit", (e) => {
   dialog.close();
 });
 
+//this is the function called when we click edit button. it immediately finds record locally by id,
+//then populates its data in the form for editing
 const editRecord = (id) => {
   const record = fetchLocalStorageRecords().find((record) => record.id === id);
   if (!record) {
@@ -159,6 +167,7 @@ const editRecord = (id) => {
   dialog.showModal();
 };
 
+//this is the function that get called when delete button is clicked
 const deleteRecord = (id) => {
   if (!confirm("Delete this record?")) {
     return;
@@ -171,6 +180,7 @@ const deleteRecord = (id) => {
   fetchRecords();
 };
 
+//fetchLocalStorageRecords returns records stored in the local storage, using storage key to identify them
 const fetchLocalStorageRecords = () => {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -179,6 +189,7 @@ const fetchLocalStorageRecords = () => {
   }
 };
 
+//recordValidator is strictly used to validate imported records via file upload
 const recordValidator = (record) => {
   const notesText = record.notes.map((note) => note.text).join("; ");
   if (!regexPatterns.title.test(record.title)) return false;
@@ -194,6 +205,9 @@ const recordValidator = (record) => {
   return true;
 };
 
+//here, file import elements are attached event listeners to to trigger corresponding functionality
+//importFile listens for a file upload then calls importRecords on a successful file parsing
+//import button listens for a click on the file input field then triggers its opening
 const importFile = document.getElementById("importFile");
 
 const importButton = document.getElementById("importButton");
@@ -223,6 +237,7 @@ importFile.addEventListener("change", (e) => {
   reader.readAsText(file);
 });
 
+//importRecords is called when importFile input is clicked
 const importRecords = (records) => {
   const validRecords = records.filter(recordValidator);
   const storedRecords = fetchLocalStorageRecords();
@@ -231,6 +246,7 @@ const importRecords = (records) => {
   fetchRecords();
 };
 
+//this function is called when exportButton gets called
 const exportRecords = () => {
   const records = fetchLocalStorageRecords();
   const dataString = JSON.stringify(records, null, 2);
@@ -245,6 +261,7 @@ const exportRecords = () => {
 const exportButton = document.getElementById("exportButton");
 exportButton.addEventListener("click", exportRecords);
 
+//sortByDateAdedButton listens for a click event and triggers sort function on the records in date column
 const sortByDateAddedButton = document.getElementById("sortByDate");
 sortByDateAddedButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
@@ -256,6 +273,9 @@ sortByDateAddedButton.addEventListener("click", () => {
   });
   rows.forEach((row) => tbody.appendChild(row));
 });
+
+//sortBySummaryButton listens for a click event and calls sort function on records in summary col
+//sorting is in asc order [A-Z]
 
 const sortBySummaryButton = document.getElementById("sortBySummary");
 sortBySummaryButton.addEventListener("click", () => {
@@ -269,6 +289,8 @@ sortBySummaryButton.addEventListener("click", () => {
   rows.forEach((row) => tbody.appendChild(row));
 });
 
+//sortByRatingButton listens for a click event too and triggers sort on rating column. 
+//records are sorted in desc order
 const sortByRatingButton = document.getElementById("sortByRating");
 sortByRatingButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
@@ -283,11 +305,13 @@ sortByRatingButton.addEventListener("click", () => {
   rows.forEach((row) => tbody.appendChild(row));
 });
 
+//dom elements relative to searching
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const caseSnstvToggle = document.getElementById("caseSnstvToggle");
 const searchStatus = document.getElementById("searchStatus");
 
+//escapeHTML ensures html tags and special chars are not mistaken for part of records
 const escapeHTML = (text) => {
   return String(text)
     .replace(/&/g, "&amp;")
@@ -297,6 +321,7 @@ const escapeHTML = (text) => {
     .replace(/'/g, "&#39;");
 };
 
+//debounce functions waits for a set delay to execute the search
 const debounce = (fn, delay) => {
   let timer;
   return () => {
@@ -305,6 +330,7 @@ const debounce = (fn, delay) => {
   };
 };
 
+//get individual values from a row's record
 const getRowFields = (record) => {
   return {
     title: record.title,
@@ -315,6 +341,7 @@ const getRowFields = (record) => {
   };
 };
 
+//this function highlights the matches as per regex, returned in the <mark> element
 const highlightMatch = (text, regexPattern) => {
   if (!regexPattern) {
     return escapeHTML(text);
@@ -337,12 +364,14 @@ const containsMatch = (text, regex) => {
   return [...text.matchAll(regex)].some((match) => match[0].length > 0);
 };
 
+//checks if there are matches contained in the book record as per corresponding regex
 const bookMatches = (book, regexPattern) => {
   return Object.values(getRowFields(book)).some((field) =>
     containsMatch(field, regexPattern),
   );
 };
 
+//fetchFilterRecords returns records with matches acc to the provided regex pattern highlighted
 const fetchFilteredRecords = (records, regexPattern) => {
   const tbody = recordsTable.querySelector("tbody");
   tbody.innerHTML = "";
@@ -363,6 +392,8 @@ const fetchFilteredRecords = (records, regexPattern) => {
   });
 };
 
+//doSearch calls all our functions and does the actual search and returns the filtered records per search. the pattern here is what the user inputs
+//regex depends on where case sensitivity was chosen or not
 const doSearch = () => {
   const pattern = searchInput.value;
 
@@ -387,6 +418,9 @@ const doSearch = () => {
   searchStatus.textContent = `${matches.length} of ${allRecords.length} match`;
 };
 
+//searchInput listens for user input and executes doSearch after the set time
 searchInput.addEventListener("input", debounce(doSearch, 300));
+//searchButton listens for a click event and automatically calls doSearch
 searchButton.addEventListener("click", doSearch);
+//the case sensitivity toggle element listens for change and updates pattern accordingly
 caseSnstvToggle.addEventListener("change", doSearch);
