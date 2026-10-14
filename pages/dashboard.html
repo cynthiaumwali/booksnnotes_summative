@@ -45,23 +45,29 @@
       </div>
       <div class="search-elements">
         <div class="input-container">
-          <input type="text" placeholder="Search your notes..." id="searchInput"/>
+          <input
+            type="text"
+            placeholder="Search any book name or note..."
+            id="searchInput"
+            aria-describedby="searchStatus"
+          />
           <button id="searchButton">Search</button>
         </div>
         <div>
-          <label for="filter">Filter by:</label>
-          <select id="filter">
-            <option value="all">All</option>
-            <option value="books">Books</option>
-            <option value="notes">Notes</option>
-            <option value="summaries">Summaries</option>
-          </select>
+          <input type="checkbox" id="caseSnstvToggle" checked />
+          <label for="caseToggle">Case-insensitive</label>
         </div>
       </div>
+      <p id="searchStatus" role="status"></p>
       <div class="import-export">
         <button id="importButton">Import</button>
         <button id="exportButton">Export</button>
-        <input type="file" id="importFile" accept=".json,application/json" hidden>
+        <input
+          type="file"
+          id="importFile"
+          accept=".json,application/json"
+          hidden
+        />
       </div>
       <div class="records-container">
         <table id="records-table">
@@ -69,10 +75,19 @@
             <tr>
               <th>Title</th>
               <th>Author</th>
-              <th>Date  Added <button class="sort-button" id="sortByDate">&#8693;</button></th>
-              <th>Summary <button class="sort-button" id="sortBySummary">&#8693;</button></th>
+              <th>
+                Date Added
+                <button class="sort-button" id="sortByDate">&#8693;</button>
+              </th>
+              <th>
+                Summary
+                <button class="sort-button" id="sortBySummary">&#8693;</button>
+              </th>
               <th>Tags</th>
-              <th>Rating <button class="sort-button" id="sortByRating">&#8693;</button></th>
+              <th>
+                Rating
+                <button class="sort-button" id="sortByRating">&#8693;</button>
+              </th>
               <th>Notes</th>
               <th>Action</th>
             </tr>

@@ -31,10 +31,12 @@ export const regexPatterns = {
   //this regex matches tags in small letters, allows hyphens and numbers, and allows tags separated by commas. 
   tags: /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\s*,\s*[a-z0-9]+(?:-[a-z0-9]+)*)*$/,
 
-  //this regex verifies that text is btn 
+  //this regex verifies that text is btn 6 and 500 characters without any trailing spaces
   text: /^\S.{4,498}\S$/,
 
+  //this regex checks whether the text has a character, whether small or upper, making sure atleast one is there
   hasALetter: /^(?=.*[A-Za-z]).+$/,
 
+  //this regex checks for duplicate words in a particular sentence being matched
   duplicateWord: /\b(\w+)\s+\1\b/i,
 };

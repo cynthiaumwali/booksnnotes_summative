@@ -225,12 +225,14 @@ button {
   border-radius: 24px;
   padding: 4px 6px;
   overflow: hidden;
+  display: flex;
 }
 
 .input-container input {
   border: none;
   padding: 12px;
   margin-right: 6px;
+  width: 100%;
 }
 
 .records-container {
@@ -326,4 +328,9 @@ dialog .form-buttons .danger {
 .sort-button:hover {
   background: orange;
   color: white;
+}
+
+mark {
+  background-color: rgb(247, 247, 109);
+  color: darkgoldenrod;
 }
