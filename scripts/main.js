@@ -171,8 +171,8 @@ sortByDateAddedButton.addEventListener("click", () => {
   const tbody = recordsTable.querySelector("tbody");
   const rows = Array.from(tbody.querySelectorAll("tr"));
   rows.sort((a, b) => {
-    const aDate = new Date(a.querySelector("td").textContent);
-    const bDate = new Date(b.querySelector("td").textContent);
+    const aDate = new Date(a.querySelector("td:nth-child(3)").textContent);
+    const bDate = new Date(b.querySelector("td:nth-child(3)").textContent);
     return bDate - aDate;
   });
   rows.forEach((row) => tbody.appendChild(row));
@@ -201,3 +201,5 @@ sortByRatingButton.addEventListener("click", () => {
   });
   rows.forEach((row) => tbody.appendChild(row));
 });
+
+const searchInput = document.getElementById("searchInput")

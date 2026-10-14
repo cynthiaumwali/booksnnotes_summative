@@ -1,24 +1,37 @@
 export const regexPatterns = {
+  //this regex checks for a title starting w a letter, matches numbers, spaces, and punctuation marks
+  //it checks if ending is a letter or a punctuation mark
   title: /^[A-Za-z0-9](?:[A-Za-z0-9 ,.'’:!?&()-]*[A-Za-z0-9.!?)])?$/,
 
+  //the regex matches author names with letters, spaces, hyphens, apostrophes, and periods.
   author: /^[A-Za-z]+(?:[ .'-]+[A-Za-z]+)*\.?$/,
 
-  genre: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/,
+  //this regex matches genres with letters with optional spaces, hyphens, comma, and apostrophes btn words
+  genre: /^[A-Za-z]+(?:[ -',]+[A-Za-z]+)*$/,
 
-  year: /^(?:1[5-9]\d{2}|20\d{2})$/,
+  //this regex matches years from 1500 to 2026
+  year: /^(?:1[5-9]\d{2}|20[0-1]\d|202[0-6])$/,
 
+  //status limited to two options: read or unread
   status: /^(?:read|unread)$/,
 
+  //ratings will be btn 1-5
   rating: /^[1-5]$/,
 
-  date: /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/,
+  yearPtnForDate: '(?:1[5-9]\\d{2}|20[0-1]\\d|202[0-6])',
+  //this regex checks for a date in the format YYYY-MM-DD. 
+  // YYYY is a four-digit year, MM is a two-digit month (01-12), and DD is a two-digit day (01-31).
+  date: /^${yearPtnForDate}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])$/,
 
+  //this regex matches page numbers from one up to nine thousand (9999)
   page: /^[1-9]\d{0,3}$/,
 
   tag: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
 
+  //this regex matches tags in small letters, allows hyphens and numbers, and allows tags separated by commas. 
   tags: /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\s*,\s*[a-z0-9]+(?:-[a-z0-9]+)*)*$/,
 
+  //this regex verifies that text is btn 
   text: /^\S.{4,498}\S$/,
 
   hasALetter: /^(?=.*[A-Za-z]).+$/,
