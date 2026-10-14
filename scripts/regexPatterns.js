@@ -7,7 +7,7 @@ export const regexPatterns = {
   author: /^[A-Za-z]+(?:[ .'-]+[A-Za-z]+)*\.?$/,
 
   //this regex matches genres with letters with optional spaces, hyphens, comma, and apostrophes btn words
-  genre: /^[A-Za-z]+(?:[ -',]+[A-Za-z]+)*$/,
+  genre: /^[A-Za-z]+(?:[ ',&/-]+[A-Za-z]+)*$/,
 
   //this regex matches years from 1500 to 2026
   year: /^(?:1[5-9]\d{2}|20[0-1]\d|202[0-6])$/,
