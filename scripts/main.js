@@ -1,10 +1,20 @@
 import { dashboardStatsCards } from "./dashboardCards.js";
 import { regexPatterns } from "./regexPatterns.js";
+import { toggleNavbar } from "./toggleNavbar.js";
 const STORAGE_KEY = "booksnnotes_records";
 const recordsTable = document.getElementById("records-table");
 
 let allRecords = [];
 let editingId = "";
+
+//fetchLocalStorageRecords returns records stored in the local storage, using storage key to identify them
+const fetchLocalStorageRecords = () => {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch {
+    return [];
+  }
+};
 
 // fetch records add seed data to local storage 
 // and renders all data together by calling fetchLocalStorageRecords
@@ -181,15 +191,6 @@ const deleteRecord = (id) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
   recordsTable.querySelector("tbody").innerHTML = ""
   fetchRecords();
-};
-
-//fetchLocalStorageRecords returns records stored in the local storage, using storage key to identify them
-const fetchLocalStorageRecords = () => {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  } catch {
-    return [];
-  }
 };
 
 //recordValidator is strictly used to validate imported records via file upload
@@ -427,3 +428,6 @@ searchInput.addEventListener("input", debounce(doSearch, 300));
 searchButton.addEventListener("click", doSearch);
 //the case sensitivity toggle element listens for change and updates pattern accordingly
 caseSnstvToggle.addEventListener("change", doSearch);
+
+//menu button toggler on small screens
+toggleNavbar();

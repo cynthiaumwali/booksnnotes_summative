@@ -255,59 +255,64 @@ td {
   word-wrap: break-word;
 }
 
-th:nth-last-child, td:nth-last-child {
+th:nth-last-child,
+td:nth-last-child {
   border-right: none;
 }
 
 dialog {
-    border: 1px solid rgb(213, 212, 212);
-    border-radius: 8px;
-    padding: 20px;
-    margin: auto;
+  border: 1px solid rgb(213, 212, 212);
+  border-radius: 8px;
+  padding: 20px;
+  margin: auto;
 }
 
 dialog h2 {
-    margin-bottom: 20px;
-    text-align: center;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-dialog input, dialog select, dialog textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 12px;
-    border: 1px solid rgb(213, 212, 212);
-    border-radius: 8px;
+dialog input,
+dialog select,
+dialog textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgb(213, 212, 212);
+  border-radius: 8px;
 }
 
 dialog .form-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 dialog .form-buttons .danger {
-    background-color: white;
-    color: black;
-    border: 1px solid rgb(213, 212, 212);
-    border-radius: 16px;
+  background-color: white;
+  color: black;
+  border: 1px solid rgb(213, 212, 212);
+  border-radius: 16px;
 }
 
 .import-export {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .import-export button {
-    background-color: white;
-    color: black;
-    border: 1px solid rgb(213, 212, 212);
-    border-radius: 16px;
+  background-color: white;
+  color: black;
+  border: 1px solid rgb(213, 212, 212);
+  border-radius: 16px;
 }
 
-.sort-button, .editButton, .deleteButton {
+.sort-button,
+.editButton,
+.deleteButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -330,7 +335,8 @@ dialog .form-buttons .danger {
   justify-content: space-between;
 }
 
-.editButton, .deleteButton {
+.editButton,
+.deleteButton {
   font-size: 15px;
   width: 32px;
   height: 32px;
@@ -346,4 +352,132 @@ dialog .form-buttons .danger {
 mark {
   background-color: rgb(247, 247, 109);
   color: darkgoldenrod;
+}
+
+.records-cards {
+  display: none;
+}
+
+.toggle-navbar {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .records-cards {
+    display: block;
+  }
+
+  .mission,
+  .vision {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .vision-image {
+    order: 0;
+  }
+
+  .stats, .heading {
+    flex-direction: column;
+  }
+
+  .heading {
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    flex-wrap : wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .toggle-navbar {
+    display: block;
+    padding: 6px 12px;
+  }
+  .nav-links,
+  .navbar > button:not(.toggle-navbar) {
+    display: none;
+  }
+
+  .navbar.open .nav-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    padding: 5px;
+  }
+
+  .navbar.open > button:not(.toggle-navbar) {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .hero-image {
+    display: none;
+  }
+  .hero {
+    display: flex;
+  }
+
+  .hero-content {
+    min-width: 0;
+  }
+
+  .hero-content h1,
+  .contact a {
+    overflow-wrap: anywhere;
+  }
+
+  .number-cards {
+    flex-wrap: wrap;
+  }
+
+  .search-elements {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dialog {
+    width: 90%;
+  }
+
+  .records-container {
+    overflow-x: visible;
+  }
+
+  table, thead, tbody, tr, th, td {
+    display: block;
+  }
+
+  table {
+    min-width: 0;
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 16px;
+    border: 1px solid rgb(213, 212, 212);
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    border: none;
+    padding: 5px;
+    text-align: left;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: end;
+  }
 }
