@@ -307,7 +307,7 @@ dialog .form-buttons .danger {
     border-radius: 16px;
 }
 
-.sort-button {
+.sort-button, .editButton, .deleteButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -323,6 +323,19 @@ dialog .form-buttons .danger {
   line-height: 1;
   cursor: pointer;
   vertical-align: middle;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editButton, .deleteButton {
+  font-size: 15px;
+  width: 32px;
+  height: 32px;
+  background: orange;
+  color: white;
 }
 
 .sort-button:hover {

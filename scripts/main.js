@@ -1,13 +1,21 @@
 import { regexPatterns } from "./regexPatterns.js";
 const recordsTable = document.getElementById("records-table");
 
-let allRecords = []
+let allRecords = [];
+let editingId = "";
 
 const fetchRecords = async () => {
   try {
     const response = await fetch("../seed.json");
     const seedRecords = await response.json();
-    allRecords = [...seedRecords, ...fetchLocalStorageRecords()];
+    if (localStorage.getItem(STORAGE_KEY) === null) {
+      const toLocalStorage = seedRecords.map((record, index) => ({
+        id: Date.now() + index,
+        ...record,
+      }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(toLocalStorage));
+    }
+    allRecords = fetchLocalStorageRecords();
     allRecords.forEach((record) => {
       const noteText = record.notes.map((note) => note.text).join("; ");
       const row = document.createElement("tr");
@@ -18,7 +26,10 @@ const fetchRecords = async () => {
         <td>${record.tags}</td>
         <td>${record.rating}</td>
         <td>${noteText}</td>
-      <td><button>Edit</button></td>`;
+        <td class="action-buttons">
+          <button class="editButton" data-action="edit" data-id="${record.id}" title="Edit" aria-label="Edit ${escapeHTML(record.title)}">&#128393;</button>
+          <button class="deleteButton" data-action="delete" data-id="${record.id}" title="Delete" aria-label="Delete ${escapeHTML(record.title)}">&#128465;</button>
+        </td>`;
       recordsTable.querySelector("tbody").appendChild(row);
     });
   } catch (error) {
@@ -39,6 +50,24 @@ closeButton.addEventListener("click", () => dialog.close());
 
 dialog.addEventListener("click", (e) => {
   if (e.target === dialog) dialog.close();
+});
+
+const dialogTitle = document.getElementById("dialogTitle")
+const submitButton = document.getElementById("submitButton");
+
+dialog.addEventListener("close", () => {
+  editingId = null;
+  form.reset();
+  dialogTitle.textContent = "Add Record";
+  submitButton.textContent = "Add Record";
+});
+
+recordsTable.querySelector("tbody").addEventListener("click", (e) => {
+  const button = e.target.closest("button[data-id]");
+  if (!button) return;
+  const id = Number(button.dataset.id);
+  if (button.dataset.action === "edit") editRecord(id);
+  if (button.dataset.action === "delete") deleteRecord(id);
 });
 
 const STORAGE_KEY = "booksnnotes_records";
@@ -80,13 +109,22 @@ form.addEventListener("submit", (e) => {
     status,
     rating,
     summary,
-    tags,
-    notes,
+    tags: tags.split(",").map((tag) => tag.trim()),
+    notes: [{ text: notes }],
     type,
   };
 
-  const records = fetchRecords();
-  records.push(newRecord);
+  const records = fetchLocalStorageRecords();
+
+  if (editingId) {
+    const index = records.findIndex((record) => record.id === editingId);
+    records[index] = { ...records[index], ...newRecord };
+  }
+  records.push({
+    id: Date.now(),
+    dateAdded: new Date().toISOString().slice(0, 10),
+    ...newRecord,
+  });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
   const tbody = recordsTable.querySelector("tbody");
   tbody.innerHTML = "";
@@ -94,6 +132,44 @@ form.addEventListener("submit", (e) => {
   form.reset();
   dialog.close();
 });
+
+const editRecord = (id) => {
+  const record = fetchLocalStorageRecords().find((record) => record.id === id);
+  if (!record) {
+    return;
+  }
+  [
+    "title",
+    "author",
+    "genre",
+    "year",
+    "status",
+    "rating",
+    "summary",
+    "type",
+  ].forEach((name) => (form.elements[name].value = record[name]));
+  form.elements["tags"].value = record.tags.join(", ");
+  form.elements["notes"].value = record.notes
+    .map((note) => note.text)
+    .join("; ");
+
+  editingId = id;
+  dialogTitle.textContent = "Edit Record";
+  submitButton.textContent = "Save Changes";
+  dialog.showModal();
+};
+
+const deleteRecord = (id) => {
+  if (!confirm("Delete this record?")) {
+    return;
+  }
+  const records = fetchLocalStorageRecords().filter(
+    (record) => record.id !== id,
+  );
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  refresh();
+  fetchRecords();
+};
 
 const fetchLocalStorageRecords = () => {
   try {
@@ -229,7 +305,6 @@ const debounce = (fn, delay) => {
   };
 };
 
-
 const getRowFields = (record) => {
   return {
     title: record.title,
@@ -307,9 +382,7 @@ const doSearch = () => {
   }
 
   searchInput.removeAttribute("aria-invalid");
-  const matches = allRecords.filter((record) =>
-    bookMatches(record, regex),
-  );
+  const matches = allRecords.filter((record) => bookMatches(record, regex));
   fetchFilteredRecords(matches, regex);
   searchStatus.textContent = `${matches.length} of ${allRecords.length} match`;
 };
