@@ -358,8 +358,39 @@ mark {
   display: none;
 }
 
-@media (max-width: 480px) {
+.pages-cap {
+  margin-bottom: 16px;
+}
 
+.settings h2 {
+  margin-bottom: 8px;
+}
+
+.settings input, #timeUnits {
+  border: none;
+  padding: 8px;
+  border: 1px solid rgb(213, 212, 212);
+}
+
+.capInputContainer {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  width:fit-content;
+  margin-top: 12px;
+}
+
+#capStatus, #convertResult, #settingsStatus {
+  color: orange;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.thresholds div {
+  margin-top: 12px;
+}
+
+@media (max-width: 480px) {
   .mission,
   .vision {
     display: grid;
@@ -371,7 +402,8 @@ mark {
     order: 0;
   }
 
-  .stats, .heading {
+  .stats,
+  .heading {
     flex-direction: column;
   }
 
@@ -380,7 +412,7 @@ mark {
   }
 
   .footer-links {
-    flex-wrap : wrap;
+    flex-wrap: wrap;
   }
 }
 
@@ -440,7 +472,12 @@ mark {
     overflow-x: visible;
   }
 
-  table, thead, tbody, tr, th, td {
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
     display: block;
   }
 

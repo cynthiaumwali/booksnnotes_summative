@@ -1,4 +1,5 @@
 const STORAGE_KEY = "booksnnotes_records";
+const CAP_KEY = "booksnnotes_cap";
 
 //fetchLocalStorageRecords returns records stored in the local storage, using storage key to identify them
 export const fetchLocalStorageRecords = () => {
@@ -34,3 +35,6 @@ export const storeSeedRecordsLocally = async () => {
         return;
     }
 }
+
+export const getCap = () => Number(localStorage.getItem(CAP_KEY)) || 0;
+export const saveCap = (cap) => localStorage.setItem(CAP_KEY, String(cap));
