@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tests | Books&Notes</title>
+  </head>
+  <body>
+    <h1>Books&Notes tests</h1>
+    <p id="summary" role="status"></p>
+    <ul id="results"></ul>
+    <script type="module">
+      import { regexPatterns as r } from "./scripts/regexPatterns.js";
+      import {
+        validateRecord,
+        importsRecordValidator,
+      } from "./scripts/validators.js";
+      import { containsMatch } from "./scripts/search.js";
+      import { sortRecords } from "./scripts/sortRecords.js";
+      import { highlightMatch, escapeHTML } from "./scripts/displayRecords.js";
+
+      const results = document.getElementById("results");
+      let passed = 0;
+      let failed = 0;
+
+      const check = (name, condition) => {
+        const li = document.createElement("li");
+        li.className = condition ? "pass" : "fail";
+        li.textContent = `${condition ? "PASS" : "FAIL"}: ${name}`;
+        results.appendChild(li);
+        condition ? passed++ : failed++;
+      };
+
+      const ok = (name, regex, value) =>
+        check(`${name} accepts "${value}"`, regex.test(value));
+      const bad = (name, regex, value) =>
+        check(`${name} rejects "${value}"`, !regex.test(value));
+
+      //test for trailing/double spaces - title
+      ok("title", r.title, "Atomic Habits");
+      ok("title", r.title, "A");
+      bad("title", r.title, " Atomic Habits");
+      bad("title", r.title, "Atomic Habits ");
+      bad("title", r.title, "Atomic  Habits");
+      bad("title", r.title, "");
+
+      ok("author", r.author, "Viktor E. Frankl");
+      ok("author", r.author, "Jean-Paul Sartre");
+      bad("author", r.author, "R2D2");
+      bad("author", r.author, "");
+
+      ok("genre", r.genre, "Self-Improvement");
+      ok("genre", r.genre, "Science & Nature");
+      bad("genre", r.genre, "123");
+
+      ok("year", r.year, "1500");
+      ok("year", r.year, "2026");
+      bad("year", r.year, "1499");
+      bad("year", r.year, "2027");
+      bad("year", r.year, "20a5");
+
+      ok("status", r.status, "read");
+      bad("status", r.status, "reading");
+      ok("rating", r.rating, "5");
+      bad("rating", r.rating, "0");
+      bad("rating", r.rating, "6");
+      bad("rating", r.rating, "4.5");
+
+      ok("pages", r.pages, "1");
+      ok("pages", r.pages, "9999");
+      bad("pages", r.pages, "0");
+      bad("pages", r.pages, "10000");
+      bad("pages", r.pages, "012");
+
+      ok("date", r.date, "2024-02-29");
+      bad("date", r.date, "2024-13-01");
+      bad("date", r.date, "2024-00-10");
+      bad("date", r.date, "2024-01-32");
+      bad("date", r.date, "24-01-01");
+
+      ok("tag", r.tag, "best-practices");
+      bad("tag", r.tag, "Best");
+      ok("tags", r.tags, "habits, productivity,psychology");
+      bad("tags", r.tags, "Habits, focus");
+      bad("tags", r.tags, "habits,");
+
+      ok("text", r.text, "Hello!");
+      ok("text", r.text, "Line one\nLine two");
+      bad("text", r.text, "Hi");
+      bad("text", r.text, " leading space");
+      bad("text", r.text, "a".repeat(501));
+      ok("text", r.text, "a".repeat(500));
+
+      ok("hasALetter (lookahead)", r.hasALetter, "123 a 456");
+      bad("hasALetter (lookahead)", r.hasALetter, "12345 !!");
+      ok(
+        "duplicateWord (back-reference)",
+        r.duplicateWord,
+        "this is the the best",
+      );
+      ok("duplicateWord (back-reference)", r.duplicateWord, "Is is");
+      bad(
+        "duplicateWord (back-reference)",
+        r.duplicateWord,
+        "this is the best",
+      );
+
+      const good = {
+        title: "Deep Work",
+        author: "Cal Newport",
+        genre: "Productivity",
+        year: "2016",
+        pages: "304",
+        status: "read",
+        rating: "4",
+        summary: "Focus matters.",
+        tags: "focus, career",
+        notes: "Schedule deep work.",
+        type: "book",
+      };
+
+      check(
+        "validateRecord returns null for a good record",
+        validateRecord(good) === null,
+      );
+      check(
+        "validateRecord catches a bad title",
+        validateRecord({ ...good, title: " x" }) !== null,
+      );
+      check(
+        "validateRecord catches bad pages",
+        validateRecord({ ...good, pages: "0" }) !== null,
+      );
+      check(
+        "validateRecord catches a missing type",
+        validateRecord({ ...good, type: "" }) !== null,
+      );
+      check(
+        "validateRecord catches a bad createdAt",
+        validateRecord({ ...good, createdAt: "2024-13-01" }) !== null,
+      );
+
+      const imported = {
+        ...good,
+        tags: ["focus", "career"],
+        notes: [{ text: "Schedule deep work" }],
+      };
+      check(
+        "import validator accepts a valid imported record",
+        importsRecordValidator(imported) === true,
+      );
+      check(
+        "import validator rejects a bad imported record",
+        importsRecordValidator({ ...imported, rating: "9" }) === false,
+      );
+
+      const list = [
+        { title: "B", pages: "300", createdAt: "2024-02-01" },
+        { title: "A", pages: "100", createdAt: "2024-03-01" },
+        { title: "C", pages: "200", createdAt: "2024-01-01" },
+      ];
+
+      check(
+        "sort title ascending",
+        sortRecords(list, "title", 1)
+          .map((x) => x.title)
+          .join("") === "ABC",
+      );
+      check(
+        "sort title descending",
+        sortRecords(list, "title", -1)
+          .map((x) => x.title)
+          .join("") === "CBA",
+      );
+      check(
+        "sort pages ascending",
+        sortRecords(list, "pages", 1)
+          .map((x) => x.pages)
+          .join() === "100,200,300",
+      );
+      check(
+        "sort date descending",
+        sortRecords(list, "createdAt", -1)
+          .map((x) => x.title)
+          .join("") === "ABC",
+      );
+      check("sortRecords does not change the original", list[0].title === "B");
+
+      check("escapeHTML escapes tags", escapeHTML("<b>") === "&lt;b&gt;");
+      check(
+        "highlightMatch wraps matches in mark",
+        highlightMatch("a cat", /cat/g) === "a <mark>cat</mark>",
+      );
+      check(
+        "highlightMatch escapes html",
+        highlightMatch("<i>x</i>", /x/g) ===
+          "&lt;i&gt;<mark>x</mark>&lt;/i&gt;",
+      );
+      check(
+        "highlightMatch with no regex returns escaped text",
+        highlightMatch("a&b", null) === "a&amp;b",
+      );
+
+      document.getElementById("summary").textContent =
+        `${passed} passed, ${failed} failed.`;
+    </script>
+  </body>
+</html>

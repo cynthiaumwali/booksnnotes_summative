@@ -14,7 +14,8 @@ export const validateRecord = (record) => {
     if (!regexPatterns.tags.test(record.tags)) return "Tags must be lowercase and separated with commas";
     if (!regexPatterns.text.test(record.notes)) return "Notes must be btween 6 and 500 characters";
     if (!record.type) return "Choose a book type";
-    if (!regexPatterns.page.test(record.pages)) return "Invalid page number";
+    if (!regexPatterns.pages.test(record.pages)) return "Invalid page number";
+    if (record.createdAt && !regexPatterns.date.test(String(record.createdAt).slice(0, 10))) return "Invalid date"
     return null;
 }
 

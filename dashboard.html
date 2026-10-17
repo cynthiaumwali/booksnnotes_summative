@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/main.css" />
     <script type="module" src="scripts/main.js" defer></script>
-    <title>Books&Notes</title>
+    <title>Dashboard | Books&Notes</title>
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to Content</a>
     <header>
-    <nav class="navbar">
-      <h2>
-        Books<span style="color: orange; font-style: italic">&</span>Notes
-      </h2>
-      <ul class="nav-links">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="home.html">About</a></li>
-        <li><a href="settings.html">Contact</a></li>
-      </ul>
-      <button id="settingsPage">Settings</button>
-    </nav>
+      <nav class="navbar">
+        <h2>
+          Books<span style="color: orange; font-style: italic">&</span>Notes
+        </h2>
+        <ul class="nav-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="home.html">About</a></li>
+          <li><a href="settings.html">Contact</a></li>
+        </ul>
+        <button id="settingsPage">Settings</button>
+      </nav>
     </header>
-    <section class="dashboard">
-      <div class="heading">
+    <main class="dashboard">
+      <section class="heading">
         <div>
           <h1>Welcome to Your Dashboard</h1>
           <p>Here you can manage your books, notes, and summaries.</p>
@@ -31,8 +31,8 @@
         <div>
           <button id="addNewButton">+ Add New</button>
         </div>
-      </div>
-      <div class="number-cards">
+      </section>
+      <section class="number-cards">
         <div class="card">
           <h3 id="totalRecords">0</h3>
           <p>Total Records</p>
@@ -49,8 +49,8 @@
           <h3 id="addedLast7Days">75</h3>
           <p>Books Added Last 7 days</p>
         </div>
-      </div>
-      <div class="search-elements">
+      </section>
+      <section class="search-elements">
         <div class="input-container">
           <input
             type="text"
@@ -64,9 +64,9 @@
           <input type="checkbox" id="caseSnstvToggle" checked />
           <label for="caseToggle">Case-insensitive</label>
         </div>
-      </div>
+      </section>
       <p id="searchStatus" role="status"></p>
-      <div class="import-export">
+      <section class="import-export">
         <button id="importButton">Import</button>
         <button id="exportButton">Export</button>
         <input
@@ -75,8 +75,8 @@
           accept=".json,application/json"
           hidden
         />
-      </div>
-      <div class="records-container">
+      </section>
+      <section class="records-container">
         <table id="records-table">
           <thead>
             <tr>
@@ -101,8 +101,8 @@
           </thead>
           <tbody></tbody>
         </table>
-      </div>
-    </section>
+      </section>
+    </main>
     <dialog id="form-container">
       <h2 id="dialogTitle">Add Record</h2>
       <form id="addRecordForm">

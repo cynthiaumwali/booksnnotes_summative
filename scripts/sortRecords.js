@@ -13,3 +13,22 @@ export const sortBySummary = (a, b) => {
 export const sortByRating = (a, b) => {
     return (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0);
 }
+
+export const sortRecords = (records, key, dir = 1) => {
+    const sorted = [...records];
+
+    sorted.sort((a,b) => {
+        let result;
+        if (key === "title") {
+            result = a.title.localeCompare(b.title);
+        }else if (key === "createdAt") {
+            result = new Date(a.createdAt) - new Date(b.createdAt);
+        }else {
+            result = Number(a[key]) - Number(b[key]);
+        }
+
+        return result * dir;
+    })
+
+    return sorted;
+};
