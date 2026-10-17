@@ -42,7 +42,7 @@ export const displayRecords = (records, regexPattern) => {
         const row = document.createElement("tr");
         row.innerHTML = `<td>${highlightMatch(fields.title, regexPattern)}</td>
         <td>${highlightMatch(fields.author, regexPattern)}</td>
-        <td>${escapeHTML(record.dateAdded)}</td>
+        <td>${escapeHTML(record.createdAt)}</td>
         <td>${highlightMatch(fields.summary, regexPattern)}</td>
         <td>${highlightMatch(fields.tags, regexPattern)}</td>
         <td>${escapeHTML(record.rating)}</td>

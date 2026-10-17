@@ -354,18 +354,11 @@ mark {
   color: darkgoldenrod;
 }
 
-.records-cards {
-  display: none;
-}
-
 .toggle-navbar {
   display: none;
 }
 
 @media (max-width: 480px) {
-  .records-cards {
-    display: block;
-  }
 
   .mission,
   .vision {

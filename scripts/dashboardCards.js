@@ -1,16 +1,16 @@
 export const dashboardStatsCards = (records) => {
   const totalRecords = document.getElementById("totalRecords");
-  const totalRatings = document.getElementById("totalRatings");
+  const totalPages = document.getElementById("totalPages");
   const topGenre = document.getElementById("topGenre");
   const addedLast7Days = document.getElementById("addedLast7Days");
 
   totalRecords.textContent = records.length;
-  let totRatings = 0;
+  let totPages = 0;
   for (const record of records) {
-    totRatings += Number(record.rating);
+    totPages += Number(record.pages);
   }
 
-  totalRatings.textContent = totRatings;
+  totalPages.textContent = totPages;
 
   let topGenreRating = "";
   let topCount = 0;
@@ -35,7 +35,7 @@ export const dashboardStatsCards = (records) => {
   let recentCount = 0;
 
   for (const record of records) {
-    const added = new Date(record.dateAdded);
+    const added = new Date(record.createdAt);
     const daysAgo = (now - added) / (1000 *60*60*24);
     if (daysAgo >= 0 && daysAgo <= 7) {
         recentCount++;

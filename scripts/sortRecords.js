@@ -1,7 +1,7 @@
 //sortByDate srts records on their date added. other date columns can also use this function
 //dates are sorted from the newest first
 export const sortByDate = (a, b) => {
-    return new Date(b.dateAdded) - new Date(a.dateAdded);
+    return new Date(b.createdAt) - new Date(a.createdAt);
 };
 
 //SortBySummary sorts records by their summaries, sorting is in asc order [A-Z]

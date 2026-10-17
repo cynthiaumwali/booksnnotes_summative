@@ -27,7 +27,7 @@ export const importRecords = (records) => {
     const validRecords = records.filter(importsRecordValidator).map((record, index) => ({
         ...record,
         id: Date.now() + index,
-        dateAdded: record.dateAdded || new Date().toISOString().slice(0, 10),
+        createdAt: new Date().toISOString().slice(0, 10),        
     }));
     const storedRecords = fetchLocalStorageRecords();
     saveRecordsLocally([...storedRecords, ...validRecords]);

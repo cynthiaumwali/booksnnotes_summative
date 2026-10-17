@@ -35,8 +35,8 @@
           <p>Total Records</p>
         </div>
         <div class="card">
-          <h3 id="totalRatings">350</h3>
-          <p>Ratings Recorded</p>
+          <h3 id="totalPages">350</h3>
+          <p>Pages</p>
         </div>
         <div class="card">
           <h3 id="topGenre">None</h3>
@@ -187,8 +187,18 @@
           <option value="note">Note</option>
           <option value="summary">Summary</option></select
         ><br />
+        <label for="pages">Pages</label>
+        <input
+          type="number"
+          id="pages"
+          name="pages"
+          placeholder="Pages"
+          required
+        />
         <div class="form-buttons">
-          <button type="submit" class="success" id="submitButton">Add Record</button>
+          <button type="submit" class="success" id="submitButton">
+            Add Record
+          </button>
           <button type="button" id="cancelButton" class="danger">Cancel</button>
         </div>
       </form>

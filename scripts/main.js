@@ -1,5 +1,3 @@
-import { dashboardStatsCards } from "./dashboardCards.js";
-import { toggleNavbar } from "./toggleNavbar.js";
 import { fetchLocalStorageRecords, saveRecordsLocally, storeSeedRecordsLocally } from "./storage.js";
 import { validateRecord } from "./validators.js";
 import { displayRecords } from "./displayRecords.js";
@@ -69,6 +67,7 @@ const values = {
   tags: form.elements["tags"].value.trim(),
   notes: form.elements["notes"].value.trim(),
   type: form.elements["type"].value,
+  pages: form.elements["pages"].value.trim(),
 }
 
   const error = validateRecord(values);
@@ -92,7 +91,8 @@ const values = {
   }else{
   records.push({
     id: Date.now(),
-    dateAdded: new Date().toISOString().slice(0, 10),
+    createdAt: new Date().toISOString().slice(0, 10),
+    updatedAt: new Date().toISOString().slice(0, 10),
     ...newRecord,
   });
 }
@@ -118,6 +118,7 @@ const editRecord = (id) => {
     "rating",
     "summary",
     "type",
+    "pages"
   ].forEach((name) => (form.elements[name].value = record[name]));
   form.elements["tags"].value = record.tags.join(", ");
   form.elements["notes"].value = record.notes
