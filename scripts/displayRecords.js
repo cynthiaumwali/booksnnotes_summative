@@ -1,4 +1,4 @@
-import { getRowFields } from "./search.js"
+import { getRowValues } from "./search.js"
 
 const recordsTable = document.getElementById("records-table");
 
@@ -38,7 +38,7 @@ export const displayRecords = (records, regexPattern) => {
     const tbody = recordsTable.querySelector("tbody");
     tbody.innerHTML = "";
     records.forEach((record) => {
-        const fields = getRowFields(record);
+        const fields = getRowValues(record);
         const row = document.createElement("tr");
         row.innerHTML = `<td>${highlightMatch(fields.title, regexPattern)}</td>
         <td>${highlightMatch(fields.author, regexPattern)}</td>

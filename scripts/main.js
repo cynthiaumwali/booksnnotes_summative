@@ -4,6 +4,8 @@ import { displayRecords } from "./displayRecords.js";
 import { debounce, regexBookMatches } from "./search.js";
 import { sortByDate, sortByRating, sortBySummary } from "./sortRecords.js";
 import { readImportFile, importRecords, exportRecords } from "./importExport.js";
+import { toggleNavbar } from "./toggleNavbar.js";
+import { dashboardStatsCards } from "./dashboardCards.js";
 
 const recordsTable = document.getElementById("records-table");
 
@@ -13,6 +15,7 @@ let editingId = null;
 const loadRecords = async () => {
   await storeSeedRecordsLocally();
   allRecords = fetchLocalStorageRecords();
+  dashboardStatsCards(allRecords);
   displayRecords(allRecords, null);
 }
 
@@ -227,3 +230,5 @@ searchInput.addEventListener("input", debounce(doSearch, 300));
 searchButton.addEventListener("click", doSearch);
 //the case sensitivity toggle element listens for change and updates pattern accordingly
 caseSnstvToggle.addEventListener("change", doSearch);
+
+toggleNavbar()

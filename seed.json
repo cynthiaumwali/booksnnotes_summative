@@ -7,6 +7,7 @@
     "year": 2018,
     "status": "completed",
     "rating": 5,
+    "pages": 789,
     "summary": "Small changes, repeated daily, compound into big results. Focus on systems and identity instead of goals.",
     "tags": ["habits", "productivity", "psychology"],
     "notes": [
@@ -25,6 +26,7 @@
     "year": 2016,
     "status": "completed",
     "rating": 4,
+    "pages": 899,
     "summary": "The ability to focus without distraction is rare and valuable. Build routines that protect long stretches of concentration.",
     "tags": ["focus", "career", "productivity"],
     "notes": [
@@ -42,6 +44,7 @@
     "year": 2011,
     "status": "completed",
     "rating": 4,
+    "pages": 785,
     "summary": "A sweeping history of humankind, arguing that shared myths like money, nations and religion let large groups cooperate.",
     "tags": ["history", "anthropology", "society"],
     "notes": [
@@ -59,6 +62,7 @@
     "year": 2020,
     "status": "completed",
     "rating": 5,
+    "pages": 557,
     "summary": "How you behave with money matters more than how much you know. Short stories about luck, risk and patience.",
     "tags": ["money", "investing", "behavior"],
     "notes": [
@@ -77,6 +81,7 @@
     "year": 2011,
     "status": "reading",
     "rating": null,
+    "pages": 77,
     "summary": "Explores two modes of thought: fast, intuitive System 1 and slow, deliberate System 2, and the biases that result.",
     "tags": ["psychology", "decision-making", "bias"],
     "notes": [
@@ -93,6 +98,7 @@
     "year": 1999,
     "status": "completed",
     "rating": 5,
+    "pages": 78,
     "summary": "Practical advice for writing flexible, maintainable code and growing as a software craftsperson.",
     "tags": ["programming", "career", "best-practices"],
     "notes": [
@@ -110,6 +116,7 @@
     "year": 1946,
     "status": "completed",
     "rating": 5,
+    "pages": 80,
     "summary": "A psychiatrist's account of surviving the camps and the idea that finding purpose is the key to enduring suffering.",
     "tags": ["meaning", "resilience", "psychology"],
     "notes": [
@@ -126,6 +133,7 @@
     "year": 1988,
     "status": "completed",
     "rating": 3,
+    "pages": 50,
     "summary": "A shepherd travels from Spain to Egypt in search of treasure and learns to follow his personal calling.",
     "tags": ["fable", "journey", "destiny"],
     "notes": [
@@ -143,6 +151,7 @@
     "year": 2018,
     "status": "want-to-read",
     "rating": null,
+    "pages": 55,
     "summary": "A memoir about growing up in a survivalist family and discovering education as a path to self-invention.",
     "tags": ["memoir", "education", "family"],
     "notes": [],
@@ -157,6 +166,7 @@
     "year": 2008,
     "status": "reading",
     "rating": null,
+    "pages": 78,
     "summary": "Principles and examples for writing readable, maintainable code, with a focus on naming, functions and refactoring.",
     "tags": ["programming", "refactoring", "best-practices"],
     "notes": [
