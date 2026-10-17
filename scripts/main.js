@@ -1,5 +1,4 @@
 import { dashboardStatsCards } from "./dashboardCards.js";
-import { regexPatterns } from "./regexPatterns.js";
 import { toggleNavbar } from "./toggleNavbar.js";
 import { fetchLocalStorageRecords, saveRecordsLocally, storeSeedRecordsLocally } from "./storage.js";
 import { validateRecord } from "./validators.js";
@@ -14,9 +13,8 @@ let allRecords = [];
 let editingId = null;
 
 const loadRecords = async () => {
-  await seedLocalStorage();
+  await storeSeedRecordsLocally();
   allRecords = fetchLocalStorageRecords();
-  dashboardStatsCards(allRecords);
   displayRecords(allRecords, null);
 }
 
@@ -50,7 +48,7 @@ dialog.addEventListener("close", () => {
 recordsTable.querySelector("tbody").addEventListener("click", (e) => {
   const button = e.target.closest("button[data-id]");
   if (!button) return;
-  const id = Number(button.dataset.id);
+  const id = button.dataset.id;
   if (button.dataset.action === "edit") editRecord(id);
   if (button.dataset.action === "delete") deleteRecord(id);
 });
@@ -140,7 +138,7 @@ const deleteRecord = (id) => {
   const records = fetchLocalStorageRecords().filter(
     (record) => record.id !== id,
   );
-  saveRecordsLocally();
+  saveRecordsLocally(records);
   loadRecords();
 };
 
@@ -203,7 +201,7 @@ const doSearch = () => {
 
   if (pattern === "") {
     searchInput.removeAttribute("aria-invalid");
-    fetchFilteredRecords(allRecords, null);
+    displayRecords(allRecords, null);
     searchStatus.textContent = `${allRecords.length} records.`;
     return;
   }
@@ -217,7 +215,7 @@ const doSearch = () => {
   }
 
   searchInput.removeAttribute("aria-invalid");
-  const matches = allRecords.filter((record) => bookMatches(record, regex));
+  const matches = allRecords.filter((record) => regexBookMatches(record, regex));
   displayRecords(matches, regex);
   searchStatus.textContent = `${matches.length} of ${allRecords.length} match`;
 };
@@ -228,6 +226,3 @@ searchInput.addEventListener("input", debounce(doSearch, 300));
 searchButton.addEventListener("click", doSearch);
 //the case sensitivity toggle element listens for change and updates pattern accordingly
 caseSnstvToggle.addEventListener("change", doSearch);
-
-//menu button toggler on small screens
-toggleNavbar();

@@ -37,7 +37,7 @@ export const dashboardStatsCards = (records) => {
   for (const record of records) {
     const added = new Date(record.dateAdded);
     const daysAgo = (now - added) / (1000 *60*60*24);
-    if (daysAgo > 7) {
+    if (daysAgo >= 0 && daysAgo <= 7) {
         recentCount++;
     }
   }

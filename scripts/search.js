@@ -24,7 +24,7 @@ export const containsMatch = (text, regex) => {
 
 //bookMatches checks if there're matches in a book record as per regex
 export const regexBookMatches = (book, regexPattern) => {
-  return Object.values(getRowFields(book)).some((field) =>
+  return Object.values(getRowValues(book)).some((field) =>
     containsMatch(field, regexPattern),
   );
 };

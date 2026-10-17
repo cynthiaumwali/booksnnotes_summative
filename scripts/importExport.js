@@ -1,5 +1,5 @@
-import { fetchLocalStorageRecords, saveRecordsLocally } from "./storage";
-import { importsRecordValidator } from "./validators";
+import { fetchLocalStorageRecords, saveRecordsLocally } from "./storage.js";
+import { importsRecordValidator } from "./validators.js";
 
 //readImportFile reads the uploaded file and calls onSuccess with the parsed array
 export const readImportFile = (file, onSuccess) => {
@@ -12,7 +12,7 @@ export const readImportFile = (file, onSuccess) => {
             alert("That file isn't valid JSON file.");
             return;
         }
-        if (!Array.isArrayd(data)) {
+        if (!Array.isArray(data)) {
             alert("Expected a JSON array of records");
             return;
         }
@@ -30,7 +30,7 @@ export const importRecords = (records) => {
         dateAdded: record.dateAdded || new Date().toISOString().slice(0, 10),
     }));
     const storedRecords = fetchLocalStorageRecords();
-    saveRecords([...storedRecords, ...validRecords]);
+    saveRecordsLocally([...storedRecords, ...validRecords]);
 };
 
 //this function is called when exportButton gets clicked

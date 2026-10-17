@@ -12,7 +12,7 @@ export const fetchLocalStorageRecords = () => {
 
 //saveRecordsLocally saves the whole records array to local storage
 export const saveRecordsLocally = (records) => {
-    localStorage.setItem(STORAGE_KEY, JSON.parse(records));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
 }
 
 // storeSeedRecordsLocally adds seed data to local storage
@@ -21,7 +21,7 @@ export const storeSeedRecordsLocally = async () => {
     if (localStorage.getItem(STORAGE_KEY) === null) {
         try {
             const response = await fetch('../seed.json');
-            const seedRecords = response.json();
+            const seedRecords = await response.json();
             const toLocalStorage = seedRecords.map((record, i) => ({
                 id: Date.now() + i,
                 ...record
